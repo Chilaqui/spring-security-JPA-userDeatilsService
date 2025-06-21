@@ -1,5 +1,12 @@
 package com.backend.securitydb.model;
 
+import java.util.Collection;
+import java.util.Collections;
+
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -8,7 +15,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 @Entity
-public class User {
+public class User implements UserDetails{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,6 +24,39 @@ public class User {
     private String password;
     @Enumerated(EnumType.STRING)
     private Role role;
+
+    //Implementacion de UserDetails metodos
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities(){
+        return Collections.singleton(new SimpleGrantedAuthority(role.name())); // Convertir el rol a una autoridad de Spring Security
+    }
+
+    @Override
+    public String getUsername() {
+        return userName;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true; // Asumiendo que la cuenta nunca expira
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true; // Asumiendo que la cuenta nunca está bloqueada
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true; // Asumiendo que las credenciales nunca expiran
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true; // Asumiendo que el usuario siempre está habilitado
+    }
+    
 
     // Default constructor
     public User() {
