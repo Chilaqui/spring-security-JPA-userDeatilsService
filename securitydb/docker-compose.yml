@@ -23,8 +23,6 @@ services:
     environment:
       PMA_HOST: securitydb
       PMA_PORT: 3306
-      PMA_USER: UserSecurity
-      PMA_PASSWORD: 1107
     depends_on:
       - securitydb
     networks:
