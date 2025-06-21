@@ -1,7 +1,5 @@
 package com.backend.securitydb.model;
 
-import javax.management.relation.Role;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
