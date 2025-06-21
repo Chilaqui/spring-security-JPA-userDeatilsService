@@ -1,0 +1,37 @@
+version: '3.8'
+services:
+  securitydb:
+    image: mysql:5.7
+    container_name: securitydb
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: securitydb
+      MYSQL_USER: UserSecurity
+      MYSQL_PASSWORD: 1107
+    ports:
+      - "3307:3306"
+    volumes:
+      - ./data:/var/lib/mysql
+    networks: 
+      - securitynet
+  
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: phpmyadmin
+    restart: always
+    environment:
+      PMA_HOST: securitydb
+      PMA_PORT: 3306
+      PMA_USER: UserSecurity
+      PMA_PASSWORD: 1107
+    depends_on:
+      - securitydb
+    networks:
+      - securitynet
+    ports:
+      - "8081:80"
+networks:
+  securitynet:
+    driver: bridge
+
