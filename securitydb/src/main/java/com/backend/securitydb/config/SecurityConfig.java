@@ -9,7 +9,6 @@ import org.springframework.security.authentication.dao.DaoAuthenticationProvider
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -28,10 +27,10 @@ public class SecurityConfig {
         http
                 .csrf(csrf -> csrf.disable())// Deshabilitar CSRF para simplificar la configuración
                 .authorizeRequests(auth -> auth
-                        .requestMatchers("/auth/**").permitAll() // Rutas Publicas
+                        .requestMatchers("/auth/register" , "/auth/login").permitAll() // Rutas Publicas
                         .anyRequest().authenticated() // Requerir autenticación para cualquier otra solicitud
                 )
-                .formLogin(withDefaults()); // Habilitar el formulario de inicio de sesión
+                .formLogin(form -> form.disable()); // Deshabilitar el formulario de inicio de sesión por defecto
         return http.build();
 
     }
