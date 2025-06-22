@@ -25,11 +25,11 @@ public class CustomUserDetailsService implements UserDetailsService {
    
     // Aquí puedes implementar el método loadUserByUsername para cargar un usuario por su nombre de usuario.
      @Override
-     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+     public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
          // Lógica para cargar el usuario desde la base de datos
-         Optional<User> user = userRepository.findByUserName(username);
+         Optional<User> user = userRepository.findByUserName(userName);
          if (user.isEmpty()) {
-             throw new UsernameNotFoundException("Usuario no encontrado con el username: " + username);
+             throw new UsernameNotFoundException("Usuario no encontrado con el username: " + userName);
          }
          return user.get();
 
