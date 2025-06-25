@@ -6,7 +6,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -15,22 +17,25 @@ import org.springframework.security.web.SecurityFilterChain;
 
 import com.backend.securitydb.service.CustomUserDetailsService;
 
-import static org.springframework.security.config.Customizer.withDefaults;
 // Este archivo configura la seguridad de la aplicación utilizando Spring Security.
 
 @Configuration
 @EnableWebSecurity
+@EnableMethodSecurity(prePostEnabled = true)
 public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .csrf(csrf -> csrf.disable())// Deshabilitar CSRF para simplificar la configuración
-                .authorizeRequests(auth -> auth
-                        .requestMatchers("/auth/register" , "/auth/login").permitAll() // Rutas Publicas
+                .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/auth/login").permitAll() // Rutas Publicas
+                        .requestMatchers("/auth/register").hasRole("DEVELOPER")
                         .anyRequest().authenticated() // Requerir autenticación para cualquier otra solicitud
                 )
+                .httpBasic(Customizer.withDefaults())
                 .formLogin(form -> form.disable()); // Deshabilitar el formulario de inicio de sesión por defecto
+                
         return http.build();
 
     }
