@@ -1,7 +1,9 @@
 package com.backend.securitydb.model;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -27,9 +29,25 @@ public class User implements UserDetails{
 
     //Implementacion de UserDetails metodos
 
+    /* @Deprecated
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities(){
         return Collections.singleton(new SimpleGrantedAuthority(role.name())); // Convertir el rol a una autoridad de Spring Security
+    } */
+
+    //Nueva implementacion
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities(){
+        List <GrantedAuthority> authorities = new ArrayList<>();
+
+        //Agrega los permisos del rol
+        for(Permission permission: role.getPermissions()){
+            authorities.add(new SimpleGrantedAuthority("PERM_"+ permission.name()));
+        }
+        //Agrega el rol como autoridad
+        authorities.add(new SimpleGrantedAuthority("ROLE_"+ role.name()));
+
+        return authorities;
     }
 
     @Override
@@ -56,6 +74,9 @@ public class User implements UserDetails{
     public boolean isEnabled() {
         return true; // Asumiendo que el usuario siempre está habilitado
     }
+
+    
+
     
 
     // Default constructor
