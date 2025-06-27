@@ -50,4 +50,10 @@ public class UserController {
         return ResponseEntity.ok("Hola admin");
     }
 
+    @PreAuthorize("hasRole'SECURITY")
+    @GetMapping("/security")
+    public ResponseEntity<String> soloSecurity(){
+        return ResponseEntity.ok("Hola Users");
+    }
+
 }
