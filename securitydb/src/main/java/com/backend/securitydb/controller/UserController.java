@@ -62,4 +62,10 @@ public class UserController {
         return ResponseEntity.ok("Hola Testers");
     }
 
+    @PreAuthorize("hasRole'MANAGER")
+    @GetMapping("/manager")
+    public ResponseEntity<String> soloMamager(){
+        return ResponseEntity.ok("Hola Manager");
+    }
+
 }
