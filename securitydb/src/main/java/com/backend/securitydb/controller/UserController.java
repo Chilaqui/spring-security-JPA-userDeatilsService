@@ -38,31 +38,31 @@ public class UserController {
         return ResponseEntity.ok("¡Hola Developer!");
     }
 
-    @PreAuthorize("hasRole'USER")
+    @PreAuthorize("hasRole('USER')")
     @GetMapping("/users")
     public ResponseEntity<String> soloUser(){
         return ResponseEntity.ok("Hola Users");
     }
 
-    @PreAuthorize("hasRole'ADMIN")
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/admin")
     public ResponseEntity<String> soloAdmin(){
         return ResponseEntity.ok("Hola admin");
     }
 
-    @PreAuthorize("hasRole'SECURITY")
+    @PreAuthorize("hasRole('SECURITY')")
     @GetMapping("/security")
     public ResponseEntity<String> soloSecurity(){
         return ResponseEntity.ok("Hola Security");
     }
 
-    @PreAuthorize("hasRole'TESTER")
+    @PreAuthorize("hasRole('TESTER')")
     @GetMapping("/tester")
     public ResponseEntity<String> soloTester(){
         return ResponseEntity.ok("Hola Testers");
     }
 
-    @PreAuthorize("hasRole'MANAGER")
+    @PreAuthorize("hasRole('MANAGER')")
     @GetMapping("/manager")
     public ResponseEntity<String> soloMamager(){
         return ResponseEntity.ok("Hola Manager");
