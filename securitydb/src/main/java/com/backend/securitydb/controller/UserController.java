@@ -21,7 +21,7 @@ public class UserController {
     private UserService userService;
 
     /* @Secured("DEVELOPER") */
-    @PreAuthorize("hasAuthority('PERM_CREATE')")
+    /* @PreAuthorize("hasAuthority('PERM_CREATE')") */
     @PostMapping("/register")
     public ResponseEntity<String> registerUser(@RequestBody User user) {
         return userService.registerUser(user);
@@ -42,6 +42,12 @@ public class UserController {
     @GetMapping("/users")
     public ResponseEntity<String> soloUser(){
         return ResponseEntity.ok("Hola Users");
+    }
+
+    @PreAuthorize("hasRole'ADMIN")
+    @GetMapping("/admin")
+    public ResponseEntity<String> soloAdmin(){
+        return ResponseEntity.ok("Hola admin");
     }
 
 }
