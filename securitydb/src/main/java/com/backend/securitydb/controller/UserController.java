@@ -38,4 +38,10 @@ public class UserController {
         return ResponseEntity.ok("¡Hola Developer!");
     }
 
+    @PreAuthorize("hasRole'USER")
+    @GetMapping("/users")
+    public ResponseEntity<String> soloUser(){
+        return ResponseEntity.ok("Hola Users");
+    }
+
 }
