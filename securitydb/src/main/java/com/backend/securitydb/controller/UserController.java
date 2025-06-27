@@ -32,7 +32,7 @@ public class UserController {
         return ResponseEntity.ok(userService.login(user));
     }
 
-    /* @PreAuthorize("hasRole('DEVELOPER')") */
+    @PreAuthorize("hasRole('DEVELOPER')")
     @GetMapping("/dev-only")
     public ResponseEntity<String> devOnlyEndpoint() {
         return ResponseEntity.ok("¡Hola Developer!");
@@ -53,7 +53,13 @@ public class UserController {
     @PreAuthorize("hasRole'SECURITY")
     @GetMapping("/security")
     public ResponseEntity<String> soloSecurity(){
-        return ResponseEntity.ok("Hola Users");
+        return ResponseEntity.ok("Hola Security");
+    }
+
+    @PreAuthorize("hasRole'TESTER")
+    @GetMapping("/tester")
+    public ResponseEntity<String> soloTester(){
+        return ResponseEntity.ok("Hola Testers");
     }
 
 }
