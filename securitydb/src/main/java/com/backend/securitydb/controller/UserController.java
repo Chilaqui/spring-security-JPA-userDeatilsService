@@ -38,6 +38,17 @@ public class UserController {
         return ResponseEntity.ok("¡Hola Developer!");
     }
 
+    // Permisos de crear
+    @PreAuthorize("hasAuthority('PERM_CREATE')")
+    @GetMapping("/dev-only-create")
+    public ResponseEntity<String> devOnlyEndpoint() {
+        return ResponseEntity.ok("¡Hola Developer puedes crear!");
+    }
+    @GetMapping("/dev-only")
+    public ResponseEntity<String> devOnlyEndpoint() {
+        return ResponseEntity.ok("¡Hola Developer!");
+    }
+
     @PreAuthorize("hasRole('USER')")
     @GetMapping("/users")
     public ResponseEntity<String> soloUser(){
