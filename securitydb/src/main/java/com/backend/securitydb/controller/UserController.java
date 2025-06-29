@@ -81,6 +81,13 @@ public class UserController {
         return ResponseEntity.ok("Hola Security");
     }
 
+    //Permisos de eliminar
+    @PreAuthorize("hasAuthority('PERM_DELETE')")
+    @GetMapping("/delete")
+    public ResponseEntity<String> deleteEndpoint() {
+        return ResponseEntity.ok("¡Hola puedes eliminar!");
+    }
+
     @PreAuthorize("hasRole('TESTER')")
     @GetMapping("/tester")
     public ResponseEntity<String> soloTester(){
