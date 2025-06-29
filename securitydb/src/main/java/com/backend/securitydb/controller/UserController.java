@@ -94,6 +94,13 @@ public class UserController {
         return ResponseEntity.ok("Hola Testers");
     }
 
+    //Permisos para actualizar
+    @PreAuthorize("hasAuthority('PERM_UPDATE')")
+    @GetMapping("/update")
+    public ResponseEntity<String> updateEndpoint() {
+        return ResponseEntity.ok("¡Hola puedes actualizar!");
+    }
+
     @PreAuthorize("hasRole('MANAGER')")
     @GetMapping("/manager")
     public ResponseEntity<String> soloMamager(){
