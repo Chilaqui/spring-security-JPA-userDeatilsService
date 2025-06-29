@@ -68,6 +68,13 @@ public class UserController {
         return ResponseEntity.ok("Hola admin");
     }
 
+    //Permisos de leer
+    @PreAuthorize("hasAuthority('PERM_READ')")
+    @GetMapping("/read")
+    public ResponseEntity<String> readEndpoint() {
+        return ResponseEntity.ok("¡Hola puedes leer en esta pagina!");
+    }
+
     @PreAuthorize("hasRole('SECURITY')")
     @GetMapping("/security")
     public ResponseEntity<String> soloSecurity(){
