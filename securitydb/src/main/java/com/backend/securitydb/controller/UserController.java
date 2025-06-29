@@ -55,6 +55,13 @@ public class UserController {
         return ResponseEntity.ok("Hola Users");
     }
 
+    // Permisos de escribir 
+    
+    @PreAuthorize("hasAuthority('PERM_WRITE')")
+    @GetMapping("/task-write")
+    public ResponseEntity<String> devOnlyEndpoint() {
+        return ResponseEntity.ok("¡Hola puedes escribir en esta pagina!");
+    }
     @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/admin")
     public ResponseEntity<String> soloAdmin(){
